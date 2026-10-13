@@ -1,0 +1,138 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 40%, #8e2de2 100%);
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.image-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px; /* Минимальный отступ */
+    background: rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.image-section::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    top: -100px;
+    left: -100px;
+    animation: pulse 6s infinite ease-in-out;
+}
+
+/* Картинка теперь максимально крупная */
+.poster {
+    height: 92vh; /* Явная высота — почти во весь экран */
+    width: auto;  /* Ширина подстроится автоматически, пропорции сохранятся */
+    object-fit: contain;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    animation: float 4s ease-in-out infinite, fadeIn 1.5s ease-out;
+    position: relative;
+    z-index: 1;
+}
+
+.text-section {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.text-section::before, .text-section::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    animation: pulse 6s infinite ease-in-out;
+}
+.text-section::before { width: 350px; height: 350px; top: -80px; right: -80px; }
+.text-section::after { width: 250px; height: 250px; bottom: -50px; left: -50px; animation-delay: 3s; }
+
+.text-content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: center;
+    max-width: 520px;
+}
+
+.text-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 24px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    animation: slideIn 1s ease-out;
+    font-weight: 700;
+}
+
+.text-content p {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    opacity: 0;
+    animation: slideIn 1s ease-out 0.4s forwards;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.1; }
+    50% { transform: scale(1.15); opacity: 0.2; }
+}
+
+@media (max-width: 768px) {
+    body, html { overflow-y: auto; overflow-x: hidden; }
+    
+    .container {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+    .image-section {
+        height: 60vh;
+        flex: none;
+        padding: 15px;
+    }
+    .poster {
+        height: 55vh;
+    }
+    .text-section {
+        min-height: 40vh;
+        flex: none;
+        padding: 40px 24px;
+    }
+    .text-content h1 { font-size: 2rem; }
+    .text-content p { font-size: 1.1rem; }
+}
